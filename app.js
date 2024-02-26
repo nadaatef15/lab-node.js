@@ -1,4 +1,3 @@
-
 const express = require("express");
 const morgan = require('morgan');
 const cors = require('cors');
@@ -34,6 +33,7 @@ const options={
 };
 const spacs =swaggerjsdoc(options);
 
+//db connect
 mongoose.connect(process.env.db_URL)
 .then(()=>{
     console.log("DB connected .... ");
@@ -53,6 +53,14 @@ server.use((request,response,next)=>{
 });
 
 //--------------- settings
+const corsOptions = {
+    origin: '*',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+server.use(cors(corsOptions));
+
 
 server.use(express.json());
 
@@ -64,12 +72,12 @@ server.use(teacherroute);
 server.use(classroute);
 server.use(childroute);
 
-// ... Not Found
+// Not Found
 server.use((request, response) => {
     response.status(404).json({ message: "Not Found" });
 });
 
-// ... Error 
+// Error 
 server.use((error, request, response, next) => {
     response.status(500).json({ message: error+"" });
 });

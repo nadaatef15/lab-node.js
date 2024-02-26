@@ -167,7 +167,7 @@ const router=express.Router();
 router.route("/child")
             .all(isAdmin)
             .get(controller.getallChildren)
-            .post(insertArray,validate,controller.addnewChild)
+            .post(isAdmin,insertArray,validate,controller.addnewChild)
             .put(insertArray,validate,controller.updateChildData)
             .delete(controller.deleteChild);
 
