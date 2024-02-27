@@ -67,7 +67,6 @@ server.use(express.json());
 server.use(authroute);
 server.use(authMW);
 
-
 server.use(teacherroute);
 server.use(classroute);
 server.use(childroute);
